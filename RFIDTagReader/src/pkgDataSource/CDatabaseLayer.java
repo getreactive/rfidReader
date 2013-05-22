@@ -5,15 +5,19 @@
 package pkgDataSource;
 
 import com.app.store.DBClass;
+import com.app.store.DBTagNameAssign;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import pkgModels.TagData;
@@ -27,7 +31,7 @@ public class CDatabaseLayer {
    TagData rec = new TagData();
    
 
-  public ArrayList<TagData> getTagRecord() {
+  public ArrayList<TagData> getTagRecord() throws SQLException {
 
         ArrayList<TagData> ret = new ArrayList();
         ArrayList<TagData> tagRecord = new ArrayList();
@@ -40,35 +44,48 @@ public class CDatabaseLayer {
             tagRecord.add(tp.getTableRow(item));
         }
 
-        DBClass dc = new DBClass();
+            DBClass dc = new DBClass();
             Connection connection = dc.conn();
-          
             Statement stmt = null ;
-        
-          String sMakeSelect= "SELECT * from TagWithName";
+            String sMakeSelect= "SELECT * from TagWithName";
         try {
            stmt = connection.createStatement();
-        }catch(Exception e){}
-        
-        try (ResultSet rs = stmt.executeQuery(sMakeSelect)) {
+
+        }catch(Exception e){ System.out.println("Exception "+ e);}
+//        try (ResultSet rs = stmt.executeQuery(sMakeSelect)) {
+//               try {
+//                     while(rs.next())
+//                       {
+//                                   System.out.println(_tempTagFiledata.size());
+//
+//                       int _slNo = rs.getInt("id");
+//                        
+//                       String _tagID = rs.getString("TagID");
+//                       
+//                      // rec.slNo=_slNo;
+//                      // rec.tagId=_tagID;
+//                      //ret.add(rec);
+//                       System.out.println("From data *&*&*& "+ _tagID);
+//                       }
+//                   }catch(Exception e){}
+//           }catch(Exception e){}
+//            //connection.close();
+             try (ResultSet rs = stmt.executeQuery(sMakeSelect)) {
                try {
                        while(rs.next())
                        {
-                       int _slNo = rs.getInt("id");
-                        
-                       String _tagID = rs.getString("TagID");
-                       
-                      // rec.slNo=_slNo;
-                      // rec.tagId=_tagID;
-                      //ret.add(rec);
-                       System.out.println("From data *&*&*& "+ _tagID);
+                       //int sResult = rs.getInt("id");
+                       String sResult = rs.getString("TagID");
+                       System.out.println("From data in DBLayer "+ sResult);
                        }
                    }catch(Exception e){}
-           }catch(Exception e){}
-            //connection.close();
+           }
+           catch (SQLException ex) {
+            Logger.getLogger(DBTagNameAssign.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        
-        
+                    connection.close();
+
         
         
         
@@ -134,7 +151,7 @@ return tagFiledata;
 }
    
     
-    public static void main(String [] args){
+    public static void main(String [] args) throws SQLException{
         CDatabaseLayer c = new CDatabaseLayer();
         c.getTagRecord();
        
