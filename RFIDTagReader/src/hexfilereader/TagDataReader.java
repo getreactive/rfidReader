@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package hexfilereader;
 
 import java.io.BufferedReader;
@@ -12,12 +8,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- *
- * @author rahul
- */
 public class TagDataReader {
-   // public ArrayList  getTagData(){ ArrayList  data; return data;}
     BufferedReader br = null;
     String sCurrentLine;
  
@@ -35,7 +26,7 @@ public ArrayList getTagList() throws FileNotFoundException, IOException{
  
       
     for(int j = 0; j <= tempdata.length-1;j++){
-      System.out.println("Tempdata :: "+tempdata[j]);
+     // System.out.println("Tempdata :: "+tempdata[j]);
      String pattern ="32 12 (\\d+) 0E 30 00";
      Pattern r = Pattern.compile(pattern);
      Matcher m;
@@ -54,11 +45,11 @@ public ArrayList getTagList() throws FileNotFoundException, IOException{
 //          tagdata.add(tempdata[j]);
 //      }
     }
-    System.out.println("Tag Data :: "+tagdata.size());
+   // System.out.println("Tag Data :: "+tagdata.size());
                     
     for (String item: tagdata){
                 //String item = tagdata.get(w);
-            System.out.println("Item " + item);
+           // System.out.println("Item " + item);
         }
     return tagdata;
 }

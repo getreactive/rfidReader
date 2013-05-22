@@ -15,14 +15,14 @@ public class TagDataParser {
         
         TagData rec = new TagData();
         // write finction to fill the data
-        rec.slNo = getSlNo(tagnewdata);
-        rec.tagId = getTagID(tagnewdata);
-        rec.userName = getName(tagnewdata);
-        rec.lap1 ="1/2/2001";
-        rec.lap2="1/2/2001";
-        rec.lap3="1/2/2001";
-        rec.lap4="1/2/2001";
-        rec.result="1/2/2001";
+//        rec.slNo = getSlNo(tagnewdata);
+//        rec.tagId = getTagID(tagnewdata);
+//        rec.userName = getName(tagnewdata);
+//        rec.lap1 ="1/2/2001";
+//        rec.lap2="1/2/2001";
+//        rec.lap3="1/2/2001";
+//        rec.lap4="1/2/2001";
+//        rec.result="1/2/2001";
         return rec;
 }
     

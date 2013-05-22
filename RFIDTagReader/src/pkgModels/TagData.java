@@ -9,12 +9,12 @@ package pkgModels;
  * @author rahul
  */
 public class TagData {
-   public String slNo;
+   public int slNo;
    public String tagId;
-   public String userName;
-   public String lap1;
-   public String lap2;
-   public String lap3;
-   public String lap4;
-   public String result;    
+//   public String userName;
+//   public String lap1;
+//   public String lap2;
+//   public String lap3;
+//   public String lap4;
+//   public String result;    
 }

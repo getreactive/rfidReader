@@ -43,18 +43,18 @@ public class CTableModel extends AbstractTableModel{
             return rec.slNo;
         case 1:
             return rec.tagId;
-        case 2:
-            return rec.userName;
-        case 3:
-            return rec.lap1;
-        case 4:
-            return rec.lap2;
-        case 5:
-            return rec.lap3;
-        case 6:
-            return rec.lap4;
-        case 7:
-            return rec.result;
+//        case 2:
+//            return rec.userName;
+//        case 3:
+//            return rec.lap1;
+//        case 4:
+//            return rec.lap2;
+//        case 5:
+//            return rec.lap3;
+//        case 6:
+//            return rec.lap4;
+//        case 7:
+//            return rec.result;
         default:
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

@@ -4,8 +4,12 @@
  */
 package pkgDataSource;
 
+import com.app.store.DBClass;
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -14,16 +18,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import pkgModels.TagData;
 
-/**
- *
- * @author rahul
- */
 public class CDatabaseLayer {
    
    ArrayList<String> _tempTagFiledata = new ArrayList<>();
    ArrayList<String> _uniqueTagData = new ArrayList<>();
    BufferedReader br = null;
    String sCurrentLine;
+   TagData rec = new TagData();
    
 
   public ArrayList<TagData> getTagRecord() {
@@ -39,29 +40,62 @@ public class CDatabaseLayer {
             tagRecord.add(tp.getTableRow(item));
         }
 
-        TagData rec = new TagData();
-        // write finction to fill the data
-        rec.slNo="1";
-        rec.tagId="12333333";
-        rec.userName = "Rahul";
-        rec.lap1 ="1/2/2001";
-        rec.lap2="1/2/2001";
-        rec.lap3="1/2/2001";
-        rec.lap4="1/2/2001";
-        rec.result="1/2/2001";
-        ret.add(rec);
+        DBClass dc = new DBClass();
+            Connection connection = dc.conn();
+          
+            Statement stmt = null ;
         
-        TagData rec1 = new TagData();
+          String sMakeSelect= "SELECT * from TagWithName";
+        try {
+           stmt = connection.createStatement();
+        }catch(Exception e){}
+        
+        try (ResultSet rs = stmt.executeQuery(sMakeSelect)) {
+               try {
+                       while(rs.next())
+                       {
+                       int _slNo = rs.getInt("id");
+                        
+                       String _tagID = rs.getString("TagID");
+                       
+                      // rec.slNo=_slNo;
+                      // rec.tagId=_tagID;
+                      //ret.add(rec);
+                       System.out.println("From data *&*&*& "+ _tagID);
+                       }
+                   }catch(Exception e){}
+           }catch(Exception e){}
+            //connection.close();
+        
+        
+        
+        
+        
+        
+        
+        
         // write finction to fill the data
-        rec1.slNo="2";
-        rec1.tagId="1444556333";
-        rec1.userName = "Kumar";
-        rec1.lap1 ="1/2/2031";
-        rec1.lap2="1/2/2005";
-        rec1.lap3="1/2/2006";
-        rec1.lap4="1/2/2001";
-        rec1.result="1/2/2001";
-        ret.add(rec1);
+        
+//        rec.tagId="12333333";
+//        rec.userName = "Rahul";
+//        rec.lap1 ="1/2/2001";
+//        rec.lap2="1/2/2001";
+//        rec.lap3="1/2/2001";
+//        rec.lap4="1/2/2001";
+//        rec.result="1/2/2001";
+//        ret.add(rec);
+//        
+//        TagData rec1 = new TagData();
+//        // write finction to fill the data
+//        rec1.slNo="2";
+//        rec1.tagId="1444556333";
+//        rec1.userName = "Kumar";
+//        rec1.lap1 ="1/2/2031";
+//        rec1.lap2="1/2/2005";
+//        rec1.lap3="1/2/2006";
+//        rec1.lap4="1/2/2001";
+//        rec1.result="1/2/2001";
+//        ret.add(rec1);
         
         return tagRecord;      
     }
@@ -112,7 +146,7 @@ return tagFiledata;
         ArrayList<String> _tempFiledata;
        _tempFiledata = new ArrayList<>();
        _tempFiledata = getTagFileData();
-       System.out.println("SIZE"+_tempFiledata.size());
+       //System.out.println("SIZE"+_tempFiledata.size());
         ArrayList<String> _UniqueIdList = new ArrayList<>();
        int count = 0; 
        for(int j = 0; j <= _tempFiledata.size()-1;j++){
@@ -130,7 +164,7 @@ return tagFiledata;
            //System.out.println(retval);
             if(retval.indexOf(":")!=-1 || retval.length()< 37 ){
             } else {
-                System.out.println("Retval Length"+retval.length());
+               // System.out.println("Retval Length"+retval.length());
                 retval = retval.substring(0,36);
                   _UniqueIdList.add(retval);  
               }  
@@ -140,13 +174,15 @@ return tagFiledata;
        
  }     
 }
-       for(String item : _UniqueIdList){ System.out.println(item);}
+       for(String item : _UniqueIdList){
+       //    System.out.println(item);
+       }
 
        Set<String> uniqueTag = new HashSet<>(_UniqueIdList);
-       System.out.println("Unique gas count: " + uniqueTag.size());
+      // System.out.println("Unique gas count: " + uniqueTag.size());
        for (Iterator<String> it = uniqueTag.iterator(); it.hasNext();) {
            String item = it.next();
-           System.out.println(item);
+          // System.out.println(item);
        }
        ArrayList<String> list = new ArrayList<>(uniqueTag);
        return list; 
