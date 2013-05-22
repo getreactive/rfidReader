@@ -4,6 +4,9 @@
  */
 package uartreader;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import pkgModels.CTableModel;
 
 /**
@@ -15,7 +18,7 @@ public class UARTReaderWindow extends javax.swing.JFrame {
     /**
      * Creates new form UARTReaderWindow
      */
-    public UARTReaderWindow() {
+    public UARTReaderWindow() throws SQLException {
         initComponents();
         jTable1.setModel(new CTableModel());
         
@@ -99,7 +102,11 @@ public class UARTReaderWindow extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new UARTReaderWindow().setVisible(true);
+                try {
+                    new UARTReaderWindow().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UARTReaderWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

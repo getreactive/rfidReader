@@ -4,6 +4,7 @@
  */
 package pkgModels;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import pkgDataSource.CDatabaseLayer;
@@ -18,7 +19,7 @@ public class CTableModel extends AbstractTableModel{
    
    private ArrayList<TagData>  dat;// throws FileNotFoundException, IOException;
 
-    public CTableModel() {
+    public CTableModel() throws SQLException {
         this.dat = (new CDatabaseLayer()).getTagRecord();
     }
 
